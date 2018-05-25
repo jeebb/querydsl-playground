@@ -16,6 +16,9 @@ public class Employee {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
+    private String code;
+
     @Column
     private String name;
 
@@ -39,7 +42,8 @@ public class Employee {
 
     }
 
-    public Employee(String name, Boolean gender, Integer age, String nationality, EmployeeTitle title, Department department) {
+    public Employee(String code, String name, Boolean gender, Integer age, String nationality, EmployeeTitle title, Department department) {
+        this.code = code;
         this.name = name;
         this.gender = gender;
         this.age = age;
@@ -102,5 +106,13 @@ public class Employee {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

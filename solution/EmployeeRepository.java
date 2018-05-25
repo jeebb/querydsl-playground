@@ -24,23 +24,25 @@ public class EmployeeRepository {
     }
 
     public Employee findByCode(String code) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return queryFactory.selectFrom(employee).where(employee.code.eq(code)).fetchOne();
     }
 
     public long countByGenderAndMinAge(boolean gender, int minAge) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return queryFactory.selectFrom(employee)
+                .where(employee.gender.eq(gender), employee.age.goe(minAge))
+                .fetchCount();
     }
 
     public Employee findOldestOne() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return queryFactory.selectFrom(employee).orderBy(employee.age.desc()).limit(1).fetchOne();
     }
 
     public List<Employee> findByDepartmentCode(String departmentCode) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return queryFactory.selectFrom(employee).where(employee.department.code.eq(departmentCode)).fetch();
     }
 
     public Map<Boolean, List<Employee>> groupByGender() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return queryFactory.selectFrom(employee).transform(GroupBy.groupBy(employee.gender).as(GroupBy.list(employee)));
     }
 
 }

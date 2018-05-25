@@ -26,11 +26,11 @@ public class DepartmentRepository {
         return queryFactory.selectFrom(department).where(department.id.eq(key)).fetchOne();
     }
 
-    /**
-     * Find the departments without employee
-     * @return
-     */
     public List<Department> findEmptyDepartments() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        QEmployee employee = QEmployee.employee;
+        return queryFactory.selectFrom(department)
+                .leftJoin(department.employeeList, employee)
+                .where(employee.id.isNull())
+                .fetch();
     }
 }

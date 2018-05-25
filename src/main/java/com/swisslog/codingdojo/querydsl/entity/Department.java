@@ -15,6 +15,9 @@ public class Department {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
+    private String code;
+
     @Column
     private String name;
 
@@ -25,7 +28,8 @@ public class Department {
 
     }
 
-    public Department(String name) {
+    public Department(String code, String name) {
+        this.code = code;
         this.name = name;
     }
 
@@ -51,5 +55,13 @@ public class Department {
 
     public void setEmployeeList(List<Employee> employeeList) {
         this.employeeList = employeeList;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
